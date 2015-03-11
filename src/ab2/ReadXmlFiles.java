@@ -1,57 +1,74 @@
-//package ab2;
-//
-//import javax.xml.parsers.DocumentBuilderFactory;
-//import javax.xml.parsers.DocumentBuilder;
-//import org.w3c.dom.Document;
-//import org.w3c.dom.NodeList;
-//import org.w3c.dom.Node;
-//import org.w3c.dom.Element;
-//import java.io.File;
-// 
-//public class ReadXmlFiles {
-// 
-//  public static void main(String argv[]) {
-// 
-//    try {
-// 
-//	File fXmlFile = new File("/Users/michael/Desktop/allo.xml");
-//	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-//	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-//	Document doc = dBuilder.parse(fXmlFile);
-// 
-//	//optional, but recommended
-//	//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-//	doc.getDocumentElement().normalize();
-// 
-//	System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-// 
-//	NodeList nList = doc.getElementsByTagName("staff");
-//	NodeList cList = doc.getElementsByTagName("titre_livre");
-// 
-//	System.out.println("----------------------------");
-// 
-//	for (int temp = 0; temp < nList.getLength(); temp++) {
-// 
-//		Node nNode = nList.item(temp);
-// 
-//		System.out.println("\nCurrent Element :" + nNode.getNodeName());
-// 
-//		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-// 
-//			Element eElement = (Element) nNode;
-//			System.out.println("crotte : " + eElement.getElementsByTagName("caca").item(0).getTextContent());
-//			System.out.println("Staff id : " + eElement.getAttribute("id"));
-//			System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
-//			System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
-//			System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
-//			System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
-// 
-//		}
-//	}
-//	
-//    } catch (Exception e) {
-//	e.printStackTrace();
-//    }
-//  }
-// 
-//}
+package ab2;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import java.io.File;
+ 
+public class ReadXmlFiles {
+ 
+  public static void main(String argv[]) {
+ 
+    try {
+ 
+	File fXmlFile = new File("/Users/michael/Desktop/allo.xml");
+	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	Document doc = dBuilder.parse(fXmlFile);
+ 
+	//optional, but recommended
+	//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+	doc.getDocumentElement().normalize();
+ 
+	System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+ 
+	NodeList nList = doc.getElementsByTagName("chapitre");
+	NodeList cList = doc.getElementsByTagName("titre_livre");
+	NodeList wList = doc.getElementsByTagName("auteur");
+	
+ 
+	System.out.println("----------------------------");
+	
+	for(int temp = 0; temp< cList.getLength();temp++){
+		Node nNode = cList.item(temp);
+		System.out.println("\nCurrent Element : " + nNode.getNodeName());
+		System.out.println("Titre de livre : " + nNode.getTextContent());
+		
+	}
+	for(int temp = 0;temp<wList.getLength();temp++){
+		Node nNode = wList.item(temp);
+		System.out.println("\nCurrent Element : " + nNode.getNodeName());
+		System.out.println("Auteur : " + nNode.getTextContent());
+	}
+	for (int temp = 0; temp < nList.getLength(); temp++) {
+ 
+		Node nNode = nList.item(temp);
+ 
+		System.out.println("\nCurrent Element :" + nNode.getNodeName());
+ 
+		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+ 
+			Element eElement = (Element) nNode;
+			System.out.println("Titre chapitre : " + eElement.getElementsByTagName("titre_chapitre").item(0).getTextContent());
+			if(eElement.getElementsByTagName("paragraphe)").getLength() > 0){
+				for(int temps = 0;temps<eElement.getElementsByTagName("paragraphe").getLength();temps++){
+					System.out.println("Paragraphe : " + eElement.getElementsByTagName("paragraphe").item(temp).getTextContent());
+				}
+			}else{
+				System.out.println("Paragraphe : " + eElement.getElementsByTagName("paragraphe").item(0).getTextContent());
+			}
+			
+	
+ 
+		}
+	}
+	
+    } catch (Exception e) {
+	e.printStackTrace();
+    }
+  }
+ 
+}
