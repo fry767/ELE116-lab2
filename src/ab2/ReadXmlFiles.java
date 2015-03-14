@@ -11,7 +11,9 @@ import java.io.File;
 public class ReadXmlFiles {
  
   public static void main(String argv[]) {
- 
+	  
+	new swingApplication();
+	
     try {
  
 	File fXmlFile = new File("/Users/michael/Desktop/allo.xml");
