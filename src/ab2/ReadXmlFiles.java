@@ -10,13 +10,13 @@ import java.io.File;
  
 public class ReadXmlFiles {
  
-  public static void main(String argv[]) {
+  public ReadXmlFiles(String pathfile) {
 	  
-	new swingApplication();
+//	swingApplication swing = new swingApplication();
 	
     try {
  
-	File fXmlFile = new File("/Users/michael/Desktop/allo.xml");
+	File fXmlFile = new File(pathfile);
 	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	Document doc = dBuilder.parse(fXmlFile);

@@ -4,7 +4,6 @@ package ab2;
 import java.awt.BorderLayout;
 import java.awt.FileDialog;
 import java.awt.Frame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,7 +21,7 @@ import javax.swing.JMenuItem;
 
 public class swingApplication extends JFrame implements ActionListener {
 
-	
+	public String pathfile;
     JFrame f = new JFrame("JEditorPane Sample");
     
 	  public swingApplication() {
@@ -64,13 +63,18 @@ public class swingApplication extends JFrame implements ActionListener {
 				  fd.setDirectory("C:\\");
 				  fd.setFile("*.xml");
 				  fd.setVisible(true);
-				  String filename = fd.getFile();
-				  if (filename == null)
+				  String pathfile = fd.getDirectory()+fd.getFile();
+				  
+
+				  
+				  if (fd.getDirectory() == null)
 				    System.out.println("You cancelled the choice");
 				  else
-					  {  System.out.println("You chose " + filename);
+					  {
+					    System.out.println("You chose " + pathfile);
 					  
-					  
+						new ReadXmlFiles(pathfile);
+						
 					    JEditorPane editor = new JEditorPane(
 						        "text/html",
 						        "<H1>CACA</H1><center>www.java2s.com</center><li>One<li><i>Two</i><li><u>Three</u>");
@@ -88,11 +92,11 @@ public class swingApplication extends JFrame implements ActionListener {
 				  fd.setDirectory("C:\\");
 				  fd.setFile("*.xml");
 				  fd.setVisible(true);
-				  String filename = fd.getFile();
-				  if (filename == null)
+				  pathfile = fd.getFile();
+				  if (pathfile == null)
 				    System.out.println("You cancelled the choice");
 				  else
-				    System.out.println("You chose " + filename);
+				    System.out.println("You chose " + pathfile);
 				}
 				
 		  }
