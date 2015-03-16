@@ -28,7 +28,7 @@ public class ReadXmlFiles {
 	//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 	doc.getDocumentElement().normalize();
  
-	System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+	//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
  
 	NodeList nList = doc.getElementsByTagName("chapitre");
 	NodeList cList = doc.getElementsByTagName("titre_livre");
@@ -39,34 +39,34 @@ public class ReadXmlFiles {
 	
 	for(int temp = 0; temp< cList.getLength();temp++){
 		Node nNode = cList.item(temp);
-		System.out.println("\nCurrent Element : " + nNode.getNodeName());
-		System.out.println("Titre de livre : " + nNode.getTextContent());
+//		System.out.println("\nCurrent Element : " + nNode.getNodeName());
+//		System.out.println("Titre de livre : " + nNode.getTextContent());
 		htmlFile = htmlFile+"<H1>"+nNode.getTextContent()+"</H1>";
 	}
 	for(int temp = 0;temp<wList.getLength();temp++){
 		Node nNode = wList.item(temp);
-		System.out.println("\nCurrent Element : " + nNode.getNodeName());
-		System.out.println("Auteur : " + nNode.getTextContent());
+		//System.out.println("\nCurrent Element : " + nNode.getNodeName());
+		//System.out.println("Auteur : " + nNode.getTextContent());
 		htmlFile = htmlFile+"<H2>"+nNode.getTextContent()+"</H2>";
 	}
 	for (int temp = 0; temp < nList.getLength(); temp++) {
  
 		Node nNode = nList.item(temp);
  
-		System.out.println("\nCurrent Element :" + nNode.getNodeName());
+		//System.out.println("\nCurrent Element :" + nNode.getNodeName());
  
 		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
  
 			Element eElement = (Element) nNode;
-			System.out.println("Titre chapitre : " + eElement.getElementsByTagName("titre_chapitre").item(0).getTextContent());
+			//System.out.println("Titre chapitre : " + eElement.getElementsByTagName("titre_chapitre").item(0).getTextContent());
 			htmlFile = htmlFile+"<H3>"+eElement.getElementsByTagName("titre_chapitre").item(0).getTextContent()+"</H3>";
 			if(eElement.getElementsByTagName("paragraphe").getLength() > 0){
 				for(int temps = 0;temps<eElement.getElementsByTagName("paragraphe").getLength();temps++){
-					System.out.println("Paragraphe : " + eElement.getElementsByTagName("paragraphe").item(temps).getTextContent());
+					//System.out.println("Paragraphe : " + eElement.getElementsByTagName("paragraphe").item(temps).getTextContent());
 					htmlFile = htmlFile+"<H5>"+eElement.getElementsByTagName("paragraphe").item(temps).getTextContent()+"</H5>";
 				}
 			}else{
-				System.out.println("Paragraphe : " + eElement.getElementsByTagName("paragraphe").item(0).getTextContent());
+				//System.out.println("Paragraphe : " + eElement.getElementsByTagName("paragraphe").item(0).getTextContent());
 				htmlFile = htmlFile+"<H5>"+eElement.getElementsByTagName("paragraphe").item(0).getTextContent()+"</H5>";
 			}
 			
@@ -76,7 +76,7 @@ public class ReadXmlFiles {
 
 	}
 		htmlFile = htmlFile+"</BODY></HTML>";	
-		System.out.println(htmlFile);
+		//System.out.println(htmlFile);
     } catch (Exception e) {
 	e.printStackTrace();
     }

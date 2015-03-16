@@ -19,7 +19,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 
-public class swingApplication extends JFrame implements ActionListener {
+public class swingApplication extends JFrame implements ActionListener , BookElementVisitor{
 
 	public String pathfile;
     JFrame f = new JFrame("JEditorPane Sample");
@@ -74,6 +74,7 @@ public class swingApplication extends JFrame implements ActionListener {
 					    System.out.println("You chose " + pathfile);
 					  
 						ReadXmlFiles xmlFile = new ReadXmlFiles(pathfile);
+					    
 						
 					    JEditorPane editor = new JEditorPane(
 						        "text/html",
@@ -101,4 +102,25 @@ public class swingApplication extends JFrame implements ActionListener {
 				}
 				
 		  }
+
+
+		@Override
+		public void visit(TitreLivre titreLivre) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void visit(Auteur auteur) {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		@Override
+		public void visit(Livre livre) {
+			// TODO Auto-generated method stub
+			
+		}
 		}
