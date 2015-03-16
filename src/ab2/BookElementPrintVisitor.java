@@ -25,4 +25,10 @@ public class BookElementPrintVisitor implements BookElementVisitor {
 	public  String get_html(){
 		return htmlfile;
 	}
+
+	@Override
+	public void visit(Chapitre chapitre) {
+		this.htmlfile += "<H3>"+ chapitre.getName() + "</H3>"; 
+		
+	}
 }

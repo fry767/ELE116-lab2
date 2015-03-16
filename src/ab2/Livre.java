@@ -9,12 +9,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class Livre implements BookElement {
-	BookElement[] elements;
-	TitreLivre[] titreLivre ;
-	
-	
+	//BookElement[] elements;
+	private ArrayList<BookElement> elements = new ArrayList<BookElement>();
+
 	public Livre(String pathfile ) {
 		try{
 		File fXmlFile = new File(pathfile);
@@ -30,13 +33,15 @@ public class Livre implements BookElement {
 		
 		Node titreLivre = cList.item(0);
 		String sTitreLivre = titreLivre.getTextContent();
-		
+		this.elements.add(new TitreLivre(sTitreLivre));
 		Node auteur = wList.item(0);
 		String sAuteur = auteur.getTextContent();
+		this.elements.add(new Auteur(sAuteur));
+		
 		
 		//create new Array of elements
-		this.elements = new BookElement[] { new TitreLivre(sTitreLivre), 
-		new Auteur(sAuteur) };
+//		this.elements = { new TitreLivre(sTitreLivre), 
+//		new Auteur(sAuteur)/*, new Chapitre(nList)*/  };
 		}catch (Exception e) {
 			e.printStackTrace();
 	    }
