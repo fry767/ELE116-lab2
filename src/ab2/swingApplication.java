@@ -73,11 +73,12 @@ public class swingApplication extends JFrame implements ActionListener {
 					  {
 					    System.out.println("You chose " + pathfile);
 					  
-						new ReadXmlFiles(pathfile);
+						ReadXmlFiles xmlFile = new ReadXmlFiles(pathfile);
 						
 					    JEditorPane editor = new JEditorPane(
 						        "text/html",
-						        "<H1>CACA</H1><center>www.java2s.com</center><li>One<li><i>Two</i><li><u>Three</u>");
+						        xmlFile.htmlFile);
+//						        "<HTML><HEAD><TITLE>The document title</TITLE></HEAD><BODY><H1>Main heading</H1><P>A paragraph.</P><P>Another paragraph.</P><UL><LI>A list item.</LI><LI>Another list item.</LI></UL></BODY></HTML>");
 							    editor.setEditable(false);
 					    JScrollPane scrollPane = new JScrollPane(editor);
 					    f.add(scrollPane, BorderLayout.CENTER);
