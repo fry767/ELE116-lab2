@@ -8,45 +8,31 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Chapitre implements BookElement, ChapiterElement {
-	ChapiterElement[] elements;
+	private ArrayList<ChapiterElement> elements = new ArrayList<ChapiterElement>();
 	String sTitreChapitre;
-
-	private String htmlfile = "";
+	//Paragraphe[] paragraphe;
+	//private String htmlfile = "";
 	
-	public  Chapitre(NodeList nList){
-		for (int temp = 0; temp < nList.getLength(); temp++) {
-			 
-			Node nNode = nList.item(temp);
-	 
-			//System.out.println("\nCurrent Element :" + nNode.getNodeName());
-	 
-			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-	 
-				Element eElement = (Element) nNode;
-				//System.out.println("Titre chapitre : " + eElement.getElementsByTagName("titre_chapitre").item(0).getTextContent());
-				sTitreChapitre = eElement.getElementsByTagName("titre_chapitre").item(0).getTextContent();
-//				if(eElement.getElementsByTagName("paragraphe").getLength() > 0){
-//					for(int temps = 0;temps<eElement.getElementsByTagName("paragraphe").getLength();temps++){
-//						//System.out.println("Paragraphe : " + eElement.getElementsByTagName("paragraphe").item(temps).getTextContent());
-//						
-//					}
-//				}else{
-//					//System.out.println("Paragraphe : " + eElement.getElementsByTagName("paragraphe").item(0).getTextContent());		
-//				}
+	public  Chapitre(Node nNode){
+		if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+			Element eElement = (Element) nNode;
+			 sTitreChapitre = eElement.getElementsByTagName("titre_chapitre").item(0).getTextContent();
+			 this.elements.add(new TitreChapitre(sTitreChapitre));
+			if(eElement.getElementsByTagName("paragraphe").getLength() > 0){
+				for(int temps = 0;temps<eElement.getElementsByTagName("paragraphe").getLength();temps++){
+					this.elements.add(new Paragraphe(eElement.getElementsByTagName("paragraphe").item(temps).getTextContent()));
+					
+				}
+			}else{
+				this.elements.add( new Paragraphe(eElement.getElementsByTagName("paragraphe").item(0).getTextContent()));
+
 			}
 
 		}
-		this.elements = new ChapiterElement[] { new TitreChapitre(sTitreChapitre)
-				 };
 	}
-	
-	
-	
-	public String getName() {
-		return this.htmlfile;
-		}
 	@Override
 	public void accept(BookElementVisitor visitor) {
 		visitor.visit(this);
@@ -55,7 +41,10 @@ public class Chapitre implements BookElement, ChapiterElement {
 
 	@Override
 	public void accept(ChapiterElementVisitor visitor) {
-		visitor.visit(this);
+		for(ChapiterElement elem : elements) {
+			elem.accept(visitor);
+
+	}
 		
 	}
 	

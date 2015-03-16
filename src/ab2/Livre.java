@@ -38,7 +38,11 @@ public class Livre implements BookElement {
 		String sAuteur = auteur.getTextContent();
 		this.elements.add(new Auteur(sAuteur));
 		
-		
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+			Node nNode = nList.item(temp);
+			this.elements.add(new Chapitre (nNode));
+			
+		}
 		//create new Array of elements
 //		this.elements = { new TitreLivre(sTitreLivre), 
 //		new Auteur(sAuteur)/*, new Chapitre(nList)*/  };

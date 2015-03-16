@@ -28,7 +28,9 @@ public class BookElementPrintVisitor implements BookElementVisitor {
 
 	@Override
 	public void visit(Chapitre chapitre) {
-		this.htmlfile += "<H3>"+ chapitre.getName() + "</H3>"; 
+		ChapiterElementPrintVisitor visitor = new ChapiterElementPrintVisitor();
+		chapitre.accept(visitor);
+		this.htmlfile += visitor.htmlfile; 
 		
 	}
 }
