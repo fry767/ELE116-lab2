@@ -22,7 +22,8 @@ import javax.swing.JMenuItem;
 public class swingApplication extends JFrame implements ActionListener{
 
 	public String pathfile;
-    JFrame f = new JFrame("JEditorPane Sample");
+    private JFrame f = new JFrame("Laboratoire 2");
+    private JEditorPane editor = new JEditorPane("text/html","");
     
 	  public swingApplication() {
 			
@@ -46,9 +47,13 @@ public class swingApplication extends JFrame implements ActionListener{
 		    newMenuItem2.addActionListener(this);
 		    fileMenu.add(newMenuItem2);
 
+
+//			        "<HTML><HEAD><TITLE>The document title</TITLE></HEAD><BODY><H1>Main heading</H1><P>A paragraph.</P><P>Another paragraph.</P><UL><LI>A list item.</LI><LI>Another list item.</LI></UL></BODY></HTML>");
+				    editor.setEditable(false);
+		    JScrollPane scrollPane = new JScrollPane(editor);
+		    f.add(scrollPane, BorderLayout.CENTER);
+		    f.setVisible(true);
 		    f.setJMenuBar(menuBar);
-		    
-	
 		    f.setSize(500, 500);
 		    f.setVisible(true);
 		  }
@@ -56,7 +61,7 @@ public class swingApplication extends JFrame implements ActionListener{
 		  
 		  public  void    actionPerformed(ActionEvent e)
 		  {
-				if (e.getActionCommand().equals("livre")){
+			  
 				System.out.println("Livre");
 				Frame yourJFrame = null;
 				FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
@@ -66,8 +71,10 @@ public class swingApplication extends JFrame implements ActionListener{
 				  String pathfile = fd.getDirectory()+fd.getFile();
 				  Livre livre = new Livre(pathfile);
 				  BookElementPrintVisitor visitor = new BookElementPrintVisitor();
-
 				  
+				if (e.getActionCommand().equals("livre")){
+
+			  
 				  if (fd.getDirectory() == null)
 				    System.out.println("You cancelled the choice");
 				  else
@@ -75,31 +82,14 @@ public class swingApplication extends JFrame implements ActionListener{
 					    System.out.println("You chose " + pathfile);
 					  
 						//ReadXmlFiles xmlFile = new ReadXmlFiles(pathfile);
-						 livre.accept(visitor);
-						
-					    JEditorPane editor = new JEditorPane(
-						        "text/html",
-						        "<HTML><HEAD></HEAD><BODY>"+visitor.get_html()+"</BODY></HTML>");
-//						        "<HTML><HEAD><TITLE>The document title</TITLE></HEAD><BODY><H1>Main heading</H1><P>A paragraph.</P><P>Another paragraph.</P><UL><LI>A list item.</LI><LI>Another list item.</LI></UL></BODY></HTML>");
-							    editor.setEditable(false);
-					    JScrollPane scrollPane = new JScrollPane(editor);
-					    f.add(scrollPane, BorderLayout.CENTER);
-					    f.setVisible(true);
+						livre.accept(visitor);
+						editor.setText("<HTML><HEAD></HEAD><BODY>"+visitor.get_html()+"</BODY></HTML>");
+
 					  }
 				}
 				
 				else if (e.getActionCommand().equals("table des matières")){
-				System.out.println("table des matières");
-				Frame yourJFrame = null;
-				FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
-				  fd.setDirectory("C:\\");
-				  fd.setFile("*.xml");
-				  fd.setVisible(true);
-				  pathfile = fd.getFile();
-				  if (pathfile == null)
-				    System.out.println("You cancelled the choice");
-				  else
-				    System.out.println("You chose " + pathfile);
+
 				}
 				
 		  }
