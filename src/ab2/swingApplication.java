@@ -61,7 +61,9 @@ public class swingApplication extends JFrame implements ActionListener{
 		  
 		  public  void    actionPerformed(ActionEvent e)
 		  {
-			  
+			   Boolean flagLivreTable = null;
+			   String htmlHeader = "";
+			   
 				System.out.println("Livre");
 				Frame yourJFrame = null;
 				FileDialog fd = new FileDialog(yourJFrame, "Choose a file", FileDialog.LOAD);
@@ -70,27 +72,33 @@ public class swingApplication extends JFrame implements ActionListener{
 				  fd.setVisible(true);
 				  String pathfile = fd.getDirectory()+fd.getFile();
 				  Livre livre = new Livre(pathfile);
-				  BookElementPrintVisitor visitor = new BookElementPrintVisitor();
+
+				  
+
 				  
 				if (e.getActionCommand().equals("livre")){
-
-			  
-				  if (fd.getDirectory() == null)
-				    System.out.println("You cancelled the choice");
-				  else
-					  {
-					    System.out.println("You chose " + pathfile);
-					  
-						//ReadXmlFiles xmlFile = new ReadXmlFiles(pathfile);
-						livre.accept(visitor);
-						editor.setText("<HTML><HEAD></HEAD><BODY>"+visitor.get_html()+"</BODY></HTML>");
-
-					  }
+					flagLivreTable = true;
+					htmlHeader = "<HTML><HEAD></HEAD><BODY>";
+			  	  
 				}
 				
 				else if (e.getActionCommand().equals("table des matières")){
-
+					flagLivreTable = false;
+					htmlHeader = "<HTML><HEAD></HEAD><BODY>"+"<H1>Table des matières</H1>";
 				}
+				
+				  BookElementPrintVisitor visitor = new BookElementPrintVisitor(flagLivreTable);				
+				  if (fd.getDirectory() == null)
+					    System.out.println("You cancelled the choice");
+					  else
+						  {
+						    System.out.println("You chose " + pathfile);
+						  
+							//ReadXmlFiles xmlFile = new ReadXmlFiles(pathfile);
+							livre.accept(visitor);
+						  }
+				
+				editor.setText(htmlHeader+visitor.get_html()+"</BODY></HTML>");
 				
 		  }
 
