@@ -4,7 +4,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
-
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 public class Chapitre implements BookElement, ChapiterElement {
 	private ArrayList<ChapiterElement> elements = new ArrayList<ChapiterElement>();
 	String sTitreChapitre;
