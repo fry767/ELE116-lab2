@@ -9,6 +9,9 @@ import org.w3c.dom.Node;
 
 
 
+
+
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -23,7 +26,7 @@ public class Livre implements BookElement {
 	// BookElement[] elements;
 	
 	public static ArrayList<BookElement> elements = new ArrayList<BookElement>();
-	
+
 
 
 	public Livre(String pathfile) {
@@ -63,7 +66,7 @@ public class Livre implements BookElement {
 			boolean chapitre = false;
 			boolean titreChapitre = false;
 			boolean paragraphe = false;
-
+			public ArrayList<String> para = new ArrayList<String>();
 		 
 			public void startElement(String uri, String localName,String qName, 
 		                Attributes attributes) throws SAXException {
@@ -80,6 +83,7 @@ public class Livre implements BookElement {
 				
 				if (qName.equalsIgnoreCase("CHAPITRE")) {
 					chapitre = true;
+					
 				}
 		 
 				if (qName.equalsIgnoreCase("TITRE_CHAPITRE")) {
@@ -93,8 +97,14 @@ public class Livre implements BookElement {
 		 
 			public void endElement(String uri, String localName,
 				String qName) throws SAXException {
-		 
-				//System.out.println("fin de " + qName);
+				if(qName.equalsIgnoreCase("CHAPITRE")){
+					for (String elem : para) {
+						System.out.println(elem);
+
+					}
+					Livre.elements.add(new Chapitre(para));
+					para.removeAll(para);
+				}
 		 
 			}
 		 
@@ -119,16 +129,18 @@ public class Livre implements BookElement {
 					//System.out.println("Nick Name : " + new String(ch, start, length));
 					chapitre = false;
 				}
-//		 
-//				if (titreChapitre) {
-//					System.out.println("Titre Chapitre : " + new String(ch, start, length));
-//					titreChapitre = false;
-//				}
-//				if (paragraphe) {
-//					System.out.println("Paragraphe : " + new String(ch, start, length));
-//					paragraphe = false;
-//				}
 		 
+				if (titreChapitre) {
+					para.add(new String(ch, start, length));
+					//System.out.println("Titre Chapitre : " + new String(ch, start, length));
+					titreChapitre = false;
+				}
+
+				if (paragraphe) {
+					para.add(new String(ch, start, length));
+					//System.out.println("Paragraphe : " + new String(ch, start, length));
+					paragraphe = false;
+				}
 			}
 		 
 		     };
