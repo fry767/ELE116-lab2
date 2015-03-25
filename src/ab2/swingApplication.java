@@ -95,7 +95,6 @@ public class swingApplication extends JFrame implements ActionListener {
 			System.out.println("You chose " + pathfile);
 			Livre livre = new Livre(pathfile);
 			BookElementPrintVisitor visitor = new BookElementPrintVisitor(flagLivreTable); // on crée un nouvel élément livre
-			// ReadXmlFiles xmlFile = new ReadXmlFiles(pathfile);
 			livre.accept(visitor);
 			editor.setText(htmlHeader + visitor.get_html() + "</BODY></HTML>"); // on undate la string html affiché dans la fenêtre
 		}
